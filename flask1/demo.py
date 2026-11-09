@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-tasks = [ 
+tasks = [
     {"id": 1, "title": "Выучить REST", "done": False},
     {"id": 2, "title": "Разобраться с Flask", "done": False},
     {"id": 3, "title": "Настроить виртуальное окружение", "done": True},
@@ -11,12 +11,12 @@ tasks = [
 next_id = max(t["id"] for t in tasks) + 1
 
 
-@app.get("/tasks")                       # Read (список)
+@app.get("/tasks")  # Read (список)
 def list_tasks():
     return jsonify(tasks), 200
 
 
-@app.get("/tasks/<int:task_id>")         # Read (одна)
+@app.get("/tasks/<int:task_id>")  # Read (одна)
 def get_task(task_id):
     for t in tasks:
         if t["id"] == task_id:
@@ -24,7 +24,7 @@ def get_task(task_id):
     return jsonify({"error": "не найдено"}), 404
 
 
-@app.post("/tasks")                      # Create
+@app.post("/tasks")  # Create
 def create_task():
     global next_id
     data = request.get_json(silent=True) or {}
@@ -34,7 +34,7 @@ def create_task():
     return jsonify(task), 201
 
 
-@app.patch("/tasks/<int:task_id>")       # Update
+@app.patch("/tasks/<int:task_id>")  # Update
 def update_task(task_id):
     for t in tasks:
         if t["id"] == task_id:
@@ -43,7 +43,7 @@ def update_task(task_id):
     return jsonify({"error": "не найдено"}), 404
 
 
-@app.delete("/tasks/<int:task_id>")      # Delete
+@app.delete("/tasks/<int:task_id>")  # Delete
 def delete_task(task_id):
     global tasks
     tasks = [t for t in tasks if t["id"] != task_id]

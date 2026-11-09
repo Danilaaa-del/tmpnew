@@ -17,6 +17,7 @@ DEFAULT_PER_PAGE = 10
 MAX_PER_PAGE = 100
 
 
+
 def now_iso():
     """Текущее время в ISO 8601 UTC."""
     return datetime.now(timezone.utc).isoformat()
